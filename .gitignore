@@ -1,0 +1,16 @@
+*~
+debug/
+release/
+Makefile*
+*.pro.*
+object_script*
+*.autosave
+ui_*
+*.o
+moc_*
+ui_*
+.qmake.stash
+.vscode/
+*.cpp-*
+*.h-*
+msvc_make.bat
