@@ -4,17 +4,16 @@ jobs:
   main:
     runs-on: windows-2022
     steps:
+    - name: checkout app
+      uses: actions/checkout@v3
     - name: prepare env
       shell: cmd
       run: echo PATH=%CD%\6.2.0\mingw81_64\bin;%CD%\Tools\mingw810_64\bin;C:\Miniconda;C:\Miniconda\Scripts;C:\Program Files\7-Zip;C:\ProgramData\Chocolatey\bin;C:\Program Files\Git\bin;C:\windows\system32;C:\windows>> %GITHUB_ENV%
-    - name: test env
+    - name: test env 1
       shell: cmd
       run: |
-        where qmake
-        where gcc
+        where git
         where 7z
-    - name: checkout
-      uses: actions/checkout@v3
     - name: install python modules
       shell: cmd
       run: pip install aqtinstall mugideploy
@@ -24,16 +23,19 @@ jobs:
     - name: install mingw
       shell: cmd
       run: aqt install-tool windows desktop tools_mingw qt.tools.win64_mingw810
+    - name: test env 2
+      shell: cmd
+      run: |
+        where qmake
+        where gcc
     - name: build app
       shell: cmd
       run: |
-        pushd mugi-serial
-          qmake
-          mingw32-make release
-        popd
+        qmake
+        mingw32-make release
     - name: collect app
       shell: cmd
-      run: mugideploy collect --version 1.0.0 --bin mugi-serial\release\mugi-serial.exe
+      run: mugideploy collect --version 1.0.0 --bin release\mugi-serial.exe
     - name: zip app
       shell: cmd
       run: 7z a mugi-serial-1.0.0-win64.zip mugi-serial-1.0.0-win64
