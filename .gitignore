@@ -14,3 +14,5 @@ ui_*
 *.cpp-*
 *.h-*
 msvc_make.bat
+mugideploy.json
+env.bat
