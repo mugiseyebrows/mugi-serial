@@ -16,20 +16,26 @@ jobs:
     - name: checkout
       uses: actions/checkout@v3
     - name: install python modules
+      shell: cmd
       run: pip install aqtinstall mugideploy
     - name: install qt
+      shell: cmd
       run: aqt install-qt windows desktop 6.2.0 win64_mingw81 -m qtserialport
     - name: install mingw
+      shell: cmd
       run: aqt install-tool windows desktop tools_mingw qt.tools.win64_mingw810
     - name: build app
+      shell: cmd
       run: |
         pushd mugi-serial
           qmake
           mingw32-make release
         popd
     - name: collect app
+      shell: cmd
       run: mugideploy collect --version 1.0.0 --bin mugi-serial\release\mugi-serial.exe
     - name: zip app
+      shell: cmd
       run: 7z a mugi-serial-1.0.0-win64.zip mugi-serial-1.0.0-win64
     - uses: actions/upload-artifact@v3
       with:
