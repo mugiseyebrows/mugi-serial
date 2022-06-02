@@ -31,6 +31,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->baudRate->setCurrentIndex(baudRates.indexOf(9600));
 
     setWindowTitle(QString("mugi-serial %1").arg(VERSION));
+    updateButtons();
 }
 
 MainWindow::~MainWindow()
