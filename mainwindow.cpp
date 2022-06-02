@@ -4,6 +4,7 @@
 #include <QSerialPortInfo>
 #include <QSerialPort>
 #include <QMessageBox>
+#include "version.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -29,7 +30,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->baudRate->addItems(baudRates_);
     ui->baudRate->setCurrentIndex(baudRates.indexOf(9600));
 
-
+    setWindowTitle(QString("mugi-serial %1").arg(VERSION));
 }
 
 MainWindow::~MainWindow()
