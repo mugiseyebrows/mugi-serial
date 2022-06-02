@@ -1,0 +1,36 @@
+name: main
+on: [push]
+jobs:
+  main:
+    runs-on: windows-2022
+    steps:
+    - name: prepare env
+      shell: cmd
+      run: echo PATH=%CD%\6.2.0\mingw81_64\bin;%CD%\Tools\mingw810_64\bin;C:\Miniconda3;C:\Miniconda3\Scripts;C:\windows\system32;C:\windows;C:\Program Files\7-Zip>> %GITHUB_ENV%
+    - name: test env
+      shell: cmd
+      run: |
+        where qmake
+        where gcc
+        where 7z
+    - name: checkout
+      uses: actions/checkout@v3
+    - name: install python modules
+      run: pip install aqtinstall mugideploy
+    - name: install qt
+      run: aqt install-qt windows desktop 6.2.0 win64_mingw81 -m qtserialport
+    - name: install mingw
+      run: aqt install-tool windows desktop tools_mingw qt.tools.win64_mingw810
+    - name: build app
+      run: |
+        pushd mugi-serial
+          qmake
+          mingw32-make release
+        popd
+    - name: collect app
+      run: mugideploy collect --version 1.0.0 --bin mugi-serial\release\mugi-serial.exe
+    - name: zip app
+      run: 7z a mugi-serial-1.0.0-win64.zip mugi-serial-1.0.0-win64
+    - uses: actions/upload-artifact@v3
+      with:
+        path: mugi-serial-1.0.0-win64.zip
