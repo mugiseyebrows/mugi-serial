@@ -12,8 +12,9 @@ jobs:
     - name: test env 1
       shell: cmd
       run: |
-        where git
         where 7z
+        where python
+        where pip
     - name: install python modules
       shell: cmd
       run: pip install aqtinstall mugideploy
@@ -41,4 +42,4 @@ jobs:
       run: 7z a mugi-serial-1.0.0-win64.zip mugi-serial-1.0.0-win64
     - uses: actions/upload-artifact@v3
       with:
-        path: mugi-serial-1.0.0-win64.zip
+        path: mugi-serial-1.0.0-win64
