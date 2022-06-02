@@ -32,14 +32,14 @@ jobs:
       run: |
         where qmake
         where gcc
+    - name: update version header
+      shell: cmd
+      run: mugideploy update --version ${{ steps.get_version.outputs.version }} --version-header version.h
     - name: build app
       shell: cmd
       run: |
         qmake
         mingw32-make release
-    - name: update version header
-      shell: cmd
-      run: mugideploy update --version ${{ steps.get_version.outputs.version }} --version-header version.h
     - name: collect app
       shell: cmd
       run: mugideploy collect --bin release\mugi-serial.exe
